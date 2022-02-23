@@ -4,6 +4,10 @@ const colors = document.getElementsByClassName('jsColor');
 const range= document.getElementById('jsRange')
 const mode = document.getElementById('jsMode')
 const saveBtn = document.getElementById('jsSave')
+const eraseAll = document.getElementById('jsAllErase')
+const erasePart = document.getElementById('jsPartErase')
+let text = document.getElementById('jsText')
+const textBtn = document.getElementById('jsTextBtn')
 
 const INITIAL_COLOR = "#2c2c2c";
 const CANVAS_SIZE = 500;
@@ -19,6 +23,13 @@ ctx.lineWidth = 2.5;
 
 let painting = false;
 let filling = false; 
+
+
+// ctx.font = 'bold 48px serif';
+// ctx.strokeText('Hello world', 50, 100);
+// text사용 . 근데 괄호 안에 써넣어야함? ㅇㅅㅇ 어... 아닐수도
+// hello world 변수에 넣고, input에 넣은거 값 가져와! 헐 대박ㅋ
+// 일단 기다려봐
 
 function stopPainting() {
     painting = false;
@@ -55,7 +66,6 @@ function handleRangeChange(event){
     // console.log(event.target.value)
     const size = event.target.value
     ctx.lineWidth = size;
-
 }
 function handleModeClick(event){
     if (filling === true){
@@ -85,6 +95,31 @@ function handleSave(){
     // console.log(link)    
     link.click()
 }
+function handleEraseAll(){
+    // 전체지우기! confirm 결과에 따라 지우기, 취소가능
+    if (window.confirm('canvas를 지울까요?')){
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0,0,canvas.width ,canvas.height )
+    }
+}
+function handlePartErase(e){
+    console.log(e)
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = 'white';
+    onMouseMove(e)
+    startPainting(e)
+    stopPainting(e)
+}
+
+let count = 1
+function inputCanvasText(e){
+    // console.log(e.path[1].childNodes[1].value)
+    const inputText = e.path[1].childNodes[1].value;
+    count++
+    ctx.font = '25px serif';
+    ctx.strokeText(inputText, 30, 50*count);
+    text.value = ""
+}
 
 if (canvas){
     canvas.addEventListener("mousemove", onMouseMove);
@@ -92,21 +127,30 @@ if (canvas){
     canvas.addEventListener("mouseup", stopPainting);
     canvas.addEventListener("mouseleave", stopPainting);
     canvas.addEventListener("click", handleCanvasClick);
+    // 오른쪽버튼 저장하기 X 
     canvas.addEventListener("contextmenu", handleCM);
 }
 
 // console.log(Array.from(colors))
 Array.from(colors).forEach(color=> color.addEventListener('click', handleColorClick))
 
-
 if(range){
     range.addEventListener('input', handleRangeChange)
 }
-
 if(mode){
     mode.addEventListener('click',handleModeClick)
 }
-
 if(saveBtn){
     saveBtn.addEventListener('click',handleSave)
 }
+if(eraseAll){
+    eraseAll.addEventListener("click", handleEraseAll);
+}
+if (erasePart){
+    erasePart.addEventListener("click", handlePartErase);
+    erasePart.addEventListener("mousemove", onMouseMove);
+    erasePart.addEventListener("mousedown", startPainting);
+    erasePart.addEventListener("mouseup", stopPainting);
+    erasePart.addEventListener("mouseleave", stopPainting);
+}
+textBtn.addEventListener('click', inputCanvasText)

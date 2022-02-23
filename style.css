@@ -24,7 +24,7 @@ h2{
     flex-direction: column;
     align-items: center;
 }
-.controls__btns{
+.controls__btns, .controls__text{
     margin-bottom: 20px;
 }
 .controls__btns button{
@@ -44,13 +44,23 @@ h2{
 .controls__range{
     margin-bottom: 20px;
 }
+.cloros__board{
+    display: flex;
+
+}
 .controls__colors{
     display: flex;
 }
-.controls__colors .controls__color{
+.controls__colors .controls__color, .colors__erase{
     width: 50px;
     height: 50px;
     border-radius: 25px;
     box-shadow:  0 4px 6px rgba(50, 50, 93, 0.11) ;
     cursor: pointer;
+}
+.colors__erase img{
+    border-radius: 25px;
+    width: 100%;
+    height: 100%;
+    text-align: center;
 }
