@@ -4,7 +4,7 @@
 - JavaScript의 mouse이벤트를 활용하여 그림판을 만들어보았다.
 - canvas API사용  
 - 강의기능 구현 : 두께 조절, 색상 선택, 파일저장
-- 파일 저장 : anvas에 그려진 data를 URL로 변환시켜, a태그의 href, download메소드를 활용해 파일로 변환시켜 저장도 가능하다
+- 파일 저장 : canvas에 그려진 data를 URL로 변환시켜, a태그의 href, download메소드를 활용해 파일로 변환시켜 저장도 가능하다
 
   ![image](https://user-images.githubusercontent.com/85012454/155488856-30365ec2-173b-4132-98f3-36152d9d03ee.png)
 
